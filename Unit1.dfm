@@ -1031,6 +1031,8 @@ object Form1: TForm1
   OldCreateOrder = False
   Visible = True
   OnCreate = FormCreate
+  OnMouseWheelDown = FormMouseWheelDown
+  OnMouseWheelUp = FormMouseWheelUp
   PixelsPerInch = 96
   TextHeight = 13
   object Memo1: TMemo
@@ -1038,10 +1040,14 @@ object Form1: TForm1
     Top = 0
     Width = 900
     Height = 424
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 0
+    Margins.Bottom = 0
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -16
+    Font.Height = -19
     Font.Name = 'Consolas'
     Font.Style = []
     ParentFont = False
@@ -1049,7 +1055,6 @@ object Form1: TForm1
     TabOrder = 0
     WantTabs = True
     OnChange = Memo1Change
-    ExplicitTop = -6
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -1063,10 +1068,19 @@ object Form1: TForm1
         Width = 0
       end
       item
+        Alignment = taCenter
+        Width = 50
+      end
+      item
+        Alignment = taCenter
         BiDiMode = bdLeftToRight
         ParentBiDiMode = False
         Width = 0
+      end
+      item
+        Width = 50
       end>
+    ExplicitTop = 427
   end
   object MainMenu1: TMainMenu
     Left = 48

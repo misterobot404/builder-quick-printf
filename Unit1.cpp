@@ -1,4 +1,3 @@
-// Hello
 //---------------------------------------------------------------------------
 #include <vcl.h>
 #include "Unit1.h"
@@ -15,7 +14,6 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
-
 
 void __fastcall TForm1::N3Click(TObject *Sender)
 {
@@ -77,6 +75,7 @@ void __fastcall TForm1::N14Click(TObject *Sender)
      if(FontDialog1->Execute())
    {
 	 Memo1->Font= FontDialog1->Font;
+     StatusBar1->Panels->Items[2]->Text = "Font size: " + String(Memo1->Font->Size);
    };
 }
 //---------------------------------------------------------------------------
@@ -103,7 +102,6 @@ void __fastcall TForm1::N6Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
 void __fastcall TForm1::FormCreate(TObject *Sender)
 {
 if (ParamCount && FileExists(ParamStr(1)))
@@ -118,16 +116,34 @@ if (ParamCount && FileExists(ParamStr(1)))
 	StatusBar1->Panels->Items[0]->Text = "Path: " + ParamStr(1);
  }
 
- StatusBar1->Panels->Items[1]->Width = 80;
- StatusBar1->Panels->Items[1]->Text = "Characters: " + String(Memo1->Text.Length());
+ StatusBar1->Panels->Items[1]->Width = 100;
+ StatusBar1->Panels->Items[1]->Text = "Line: " + String(Memo1->Lines->Count);
+
+ StatusBar1->Panels->Items[2]->Width = 100;
+ StatusBar1->Panels->Items[2]->Text = "Characters: " + String(Memo1->Text.Length());
+
+ StatusBar1->Panels->Items[3]->Width = 80;
+ StatusBar1->Panels->Items[3]->Text = "Font size: " + String(Memo1->Font->Size);
 
  ShowScrollBar(Form1->Memo1->Handle,SB_VERT,false);
+
+ int a = (Memo1->Height) / (abs(Memo1->Font->Height));
+
+  if((Memo1->Lines->Count)>(a-2))
+  {
+	ShowScrollBar(Form1->Memo1->Handle,SB_VERT,true);
+  }
+  else
+  {
+	ShowScrollBar(Form1->Memo1->Handle,SB_VERT,false);
+  }
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Memo1Change(TObject *Sender)
 {
-  StatusBar1->Panels->Items[1]->Text = "Characters: " + String(Memo1->Text.Length());
+  StatusBar1->Panels->Items[2]->Text = "Characters: " + String(Memo1->Text.Length());
+   StatusBar1->Panels->Items[1]->Text = "Line: " + String(Memo1->Lines->Count);
 
   int a = (Memo1->Height) / (abs(Memo1->Font->Height));
 
@@ -137,11 +153,10 @@ void __fastcall TForm1::Memo1Change(TObject *Sender)
   }
   else
   {
-    ShowScrollBar(Form1->Memo1->Handle,SB_VERT,false);
+	ShowScrollBar(Form1->Memo1->Handle,SB_VERT,false);
   }
 }
 //---------------------------------------------------------------------------
-
 
 void __fastcall TForm1::Saveas1Click(TObject *Sender)
 {
@@ -190,3 +205,23 @@ void __fastcall TForm1::AboutquickPrintf1Click(TObject *Sender)
 	Form2->Show();
 }
 //---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::FormMouseWheelDown(TObject *Sender, TShiftState Shift, TPoint &MousePos,
+		  bool &Handled)
+{
+	if (GetKeyState(VK_CONTROL) < 0)
+		Memo1->Font->Size -= 1;
+	StatusBar1->Panels->Items[2]->Text = "Font size: " + String(Memo1->Font->Size);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormMouseWheelUp(TObject *Sender, TShiftState Shift, TPoint &MousePos,
+          bool &Handled)
+{
+	if (GetKeyState(VK_CONTROL) < 0)
+		Memo1->Font->Size += 1;
+	StatusBar1->Panels->Items[2]->Text = "Font size: " + String(Memo1->Font->Size);
+}
+//---------------------------------------------------------------------------
+

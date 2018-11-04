@@ -59,6 +59,10 @@ __published:	// IDE-managed Components
 	void __fastcall Classic1Click(TObject *Sender);
 	void __fastcall Black1Click(TObject *Sender);
 	void __fastcall AboutquickPrintf1Click(TObject *Sender);
+	void __fastcall FormMouseWheelDown(TObject *Sender, TShiftState Shift, TPoint &MousePos,
+		  bool &Handled);
+	void __fastcall FormMouseWheelUp(TObject *Sender, TShiftState Shift, TPoint &MousePos,
+          bool &Handled);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
